@@ -1,0 +1,44 @@
+[
+    {
+        "medicamento": "Noxpirin",
+        "elemento": "Acetaminofén",
+        "concentracion": "500",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Noxpirin",
+        "elemento": "Cetirizina",
+        "concentracion": "5",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Noxpirin",
+        "elemento": "Cafeína",
+        "concentracion": "30",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Noxpirin",
+        "elemento": "Fenilefrina Clorhidrato",
+        "concentracion": "10",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Dolex",
+        "elemento": "Acetaminofén",
+        "concentracion": "500",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Advil",
+        "elemento": "Ibuprofeno",
+        "concentracion": "200",
+        "unidad_medida": "mg"
+    },
+    {
+        "medicamento": "Advil",
+        "elemento": "Cafeína",
+        "concentracion": "30",
+        "unidad_medida": "mg"
+    }
+]
