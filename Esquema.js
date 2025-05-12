@@ -1,43 +1,27 @@
+
+//Creación de usuario para crear el modelo 
+
 db.createUser({
-    user: "nombre_de_usuario", // Reemplaza por el nombre del usuario
-    pwd: "contraseña_segura",  // Reemplaza por una contraseña segura
+    user: "admin_modelos",
+    pwd: "contraseña_segura123",
     roles: [
-        {
-            role: "readWrite",     // Permisos CRUD (lectura y escritura)
-            db: "tu_base_de_datos" // Base de datos específica
-        }
+        { role: "dbOwner", db: "medicamentos_db" }
     ]
 });
 
+// creacion del usuario para la coneccion al modelo mediante la api 
 
-db.getUsers();
-
-db.dropUser("nombre_de_usuario");
-
-mongosh - u "nombre_de_usuario" - p "contraseña_segura" --authenticationDatabase "tu_base_de_datos"
-
-
-use tu_base_de_datos;
-
-db.updateUser("sebasvitz", {
+db.createUser({
+    user: "api_user",
+    pwd: "contraseña_segura456",
     roles: [
-        { role: "dbOwner", db: "tu_base_de_datos" } // Otorga control total sobre esta base de datos
+        { role: "readWrite", db: "medicamentos_db" }
     ]
 });
 
 
 
-
-
-
-
-
-
-
-
-
-
-// Creacion de Collecion de compuestos_medicamentos con validaciones.
+// Creacion de Collecion de compuestos_medicamentos con validaciones. (con el usuario que tiene permisos)
 
 use medicamentos_db;
 
