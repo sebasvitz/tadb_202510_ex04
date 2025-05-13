@@ -1,6 +1,7 @@
 
 
 # Estructura basica del proyecto a nivel de carpetas y archivos:
+```plaintext
 tadb_202510_ex04/
 │
 ├── app/
@@ -37,9 +38,10 @@ tadb_202510_ex04/
 │   ├── medicamentos.json
 │   └── compuestos_medicamentos.json
 │
+├── .gitignore                   # Archivos y carpetas ignorados por Git
 ├── requirements.txt             # Dependencias del proyecto
 └── README.md                    # Documentación del proyecto
-
+```
 
 # Proyecto Medicamentos y Compuestos
 
@@ -89,7 +91,10 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-
+5. actualice pip de ser necesario:
+```bash
+python.exe -m pip install --upgrade pip
+```
 
 ## Ejecución
 
