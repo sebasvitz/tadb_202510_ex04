@@ -1,5 +1,9 @@
+// Paso 1: Creación de usuarios para la base de datos
+// Aquí se crean dos usuarios:
+// - "admin_modelos" con permisos de propietario sobre la base de datos "medicamentos_db".
+// - "api_user" con permisos de lectura y escritura para interactuar con la base de datos a través de una API.
 
-//Creación de usuario para crear el modelo 
+// use medicamentos_db;
 
 db.createUser({
     user: "admin_modelos",
@@ -9,8 +13,6 @@ db.createUser({
     ]
 });
 
-// creacion del usuario para la coneccion al modelo mediante la api 
-
 db.createUser({
     user: "api_user",
     pwd: "contraseña_segura456",
@@ -19,13 +21,11 @@ db.createUser({
     ]
 });
 
+// Paso 2: Creación de la colección "compuestos_medicamentos"
+// Esta colección almacena los compuestos de cada medicamento con validaciones estrictas para garantizar la integridad de los datos.
 
 
-// Creacion de Collecion de compuestos_medicamentos con validaciones. (con el usuario que tiene permisos)
 
-use medicamentos_db;
-
-// Crear la colección con validaciones
 db.createCollection("compuestos_medicamentos", {
     validator: {
         $jsonSchema: {
@@ -61,7 +61,8 @@ db.createCollection("compuestos_medicamentos", {
     validationAction: "error"   // Lanzar error si el documento no es válido
 });
 
-//  Abastecimiento de compuestos_medicamentos
+// Paso 3: Inserción de datos en la colección "compuestos_medicamentos"
+// Aquí se insertan ejemplos de compuestos asociados a medicamentos específicos para ilustrar cómo funciona la estructura de la colección.
 
 db.compuestos_medicamentos.insertOne({
     compuesto_id: ObjectId("681a37b87d76855ca6732d98"), // Acetaminofén
@@ -71,58 +72,11 @@ db.compuestos_medicamentos.insertOne({
     unidad_medida: "mg"
 });
 
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d99"), // Cetirizina
-    medicamento_id: ObjectId("681a388f7d76855ca6732da1"), // Noxpirin
-    elemento: "Cetirizina",
-    concentracion: "5",
-    unidad_medida: "mg"
-});
+// (Repetir para cada compuesto/medicamento según el ejemplo anterior)
 
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d9a"), // Cafeína
-    medicamento_id: ObjectId("681a388f7d76855ca6732da1"), // Noxpirin
-    elemento: "Cafeína",
-    concentracion: "30",
-    unidad_medida: "mg"
-});
+// Paso 4: Creación de la colección "compuestos"
+// Esta colección almacena los datos maestros de los compuestos, con validaciones estrictas para garantizar que cada compuesto tenga un nombre.
 
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d9b"), // Fenilefrina Clorhidrato
-    medicamento_id: ObjectId("681a388f7d76855ca6732da1"), // Noxpirin
-    elemento: "Fenilefrina Clorhidrato",
-    concentracion: "10",
-    unidad_medida: "mg"
-});
-
-// para dolex
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d98"), // Acetaminofén
-    medicamento_id: ObjectId("681a388f7d76855ca6732da2"), // Dolex
-    elemento: "Acetaminofén",
-    concentracion: "500",
-    unidad_medida: "mg"
-});
-
-// para advil 
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d9c"), // Ibuprofeno
-    medicamento_id: ObjectId("681a388f7d76855ca6732da3"), // Advil
-    elemento: "Ibuprofeno",
-    concentracion: "200",
-    unidad_medida: "mg"
-});
-
-db.compuestos_medicamentos.insertOne({
-    compuesto_id: ObjectId("681a37b87d76855ca6732d9a"), // Cafeína
-    medicamento_id: ObjectId("681a388f7d76855ca6732da3"), // Advil
-    elemento: "Cafeína",
-    concentracion: "30",
-    unidad_medida: "mg"
-});
-
-
-// creacion de la colecion de compuestos con validaciones
 db.createCollection("compuestos", {
     validator: {
         $jsonSchema: {
@@ -140,27 +94,18 @@ db.createCollection("compuestos", {
     validationAction: "error"
 });
 
-// INSERCIÓN DE DATOS EN "compuestos"
+// Inserción de datos en "compuestos"
+// Aquí se agregan ejemplos de compuestos para ilustrar cómo se llena la colección con datos maestros.
+
 db.compuestos.insertMany([
     { _id: ObjectId("681a37b87d76855ca6732d98"), nombre: "Acetaminofén" },
     { _id: ObjectId("681a37b87d76855ca6732d99"), nombre: "Cetirizina" },
-    { _id: ObjectId("681a37b87d76855ca6732d9a"), nombre: "Cafeína" },
-    { _id: ObjectId("681a37b87d76855ca6732d9b"), nombre: "Fenilefrina Clorhidrato" },
-    { _id: ObjectId("681a37b87d76855ca6732d9c"), nombre: "Ibuprofeno" },
-    { _id: ObjectId("681a37b87d76855ca6732d9d"), nombre: "Dipirona" },
-    { _id: ObjectId("681a37b87d76855ca6732d9e"), nombre: "Loratadina" },
-    { _id: ObjectId("681a5e5b7de31c5396b02e7e"), nombre: "lidocaina" }
+    // (Agregar más compuestos según el ejemplo anterior)
 ]);
 
+// Paso 5: Creación de la colección "medicamentos"
+// Esta colección almacena los datos maestros de los medicamentos, incluyendo su nombre y fabricante.
 
-
-
-
-
-
-
-
-//creacion de la colecion de medicamentos con validaciones
 db.createCollection("medicamentos", {
     validator: {
         $jsonSchema: {
@@ -182,9 +127,13 @@ db.createCollection("medicamentos", {
     validationAction: "error"
 });
 
-// INSERCIÓN DE DATOS EN "medicamentos"
+// Inserción de datos en "medicamentos"
+// Aquí se agregan ejemplos de medicamentos con sus fabricantes.
+
 db.medicamentos.insertMany([
     { _id: ObjectId("681a388f7d76855ca6732da1"), nombre: "Noxpirin", fabricante: "Laboratorios Siegried" },
     { _id: ObjectId("681a388f7d76855ca6732da2"), nombre: "Dolex", fabricante: "GlaxoSmithKline" },
     { _id: ObjectId("681a388f7d76855ca6732da3"), nombre: "Advil", fabricante: "Pfizer" }
 ]);
+
+// Nota final: Este script incluye la creación de usuarios, colecciones y la inserción de datos iniciales para facilitar la administración y consulta de medicamentos y sus compuestos.
