@@ -33,10 +33,28 @@ class MedicamentoRepository:
             return None
 
     def create(self, medicamento: MedicamentoCreate) -> Medicamento:
-        """Crear un nuevo medicamento"""
-        medicamento_dict = medicamento.model_dump()
-        result = self.medicamentos.insert_one(medicamento_dict)
-        return Medicamento(_id=str(result.inserted_id), **medicamento_dict)
+        try:
+            # Obtener diccionario del modelo Pydantic
+            medicamento_dict = medicamento.model_dump()
+            
+            # Remover _id si existe en el diccionario
+            if '_id' in medicamento_dict:
+                del medicamento_dict['_id']
+            
+            # Insertar en la base de datos
+            result = self.medicamentos.insert_one(medicamento_dict)
+            
+            # Crear el objeto con campos explícitos (evita conflictos)
+            return Medicamento(
+                id=str(result.inserted_id),
+                nombre=medicamento_dict["nombre"],
+                fabricante=medicamento_dict["fabricante"]
+            )
+        except Exception as e:
+            # Si ocurre algún error, intentar hacer rollback manualmente
+            if 'result' in locals() and hasattr(result, 'inserted_id'):
+                self.medicamentos.delete_one({"_id": result.inserted_id})
+            raise e  # Re-lanzar la excepción para que sea manejada en capas superiores
 
     def update(self, medicamento_id: str, medicamento: MedicamentoCreate) -> Medicamento:
         """Actualizar un medicamento existente"""
@@ -84,11 +102,18 @@ class MedicamentoRepository:
             
     def add_compuesto_to_medicamento(self, rel: CompuestoMedicamentoCreate) -> CompuestoMedicamento:
         """Agregar un compuesto a un medicamento con su concentración"""
+        # Obtener el compuesto para conseguir su nombre
+        compuesto = self.compuestos.find_one({"_id": ObjectId(rel.compuesto_id)})
+        
+        if not compuesto:
+            raise ValueError(f"Compuesto con ID {rel.compuesto_id} no encontrado")
+        
         rel_dict = {
             "compuesto_id": ObjectId(rel.compuesto_id),
             "medicamento_id": ObjectId(rel.medicamento_id),
             "concentracion": rel.concentracion,
-            "unidad_medida": rel.unidad_medida
+            "unidad_medida": rel.unidad_medida,
+            "elemento": compuesto["nombre"]  # Usar el nombre real del compuesto
         }
         
         result = self.compuestos_medicamentos.insert_one(rel_dict)
