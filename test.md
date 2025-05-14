@@ -213,13 +213,11 @@ Cada solicitud representa una operación que deseas probar en tu API (por ejempl
 4. Escribe la URL: `http://localhost:8000/api/medicamentos/6823fcb160ee48657e6950af`.
 5. Haz clic en **"Send"**.
 
-    ```
+   
 ## Captura de la respuesta
 ![Delete Medicamento](https://drive.google.com/uc?id=12cWsCuLZFp29hAAHPTihGAaQ8DSi2l3Q)
 
 ---
-
-
 
 
 #### **Prueba 6: Eliminar un compuesto**
