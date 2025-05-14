@@ -77,6 +77,7 @@ Este comando obtiene todos los medicamentos registrados en la base de datos.
 
 ```bash
 curl -X GET http://localhost:8000/api/medicamentos
+```
 ## Captura de la respuesta
 ![Get Medicamentos](https://drive.google.com/uc?id=1tlJTWIKhRDWm-mFVj6QTdkSj-yKAsE-c)
 
@@ -93,7 +94,8 @@ curl -X DELETE http://localhost:8000/api/medicamentos/6823b1a42a5aee01b32e32f7
 Este comando elimina un compuesto específico de la base de datos.
 
 ```bash
-curl -X DELETE http://localhost:8000/api/compuestos/6823aa63f3cf615116ff400e```
+curl -X DELETE http://localhost:8000/api/compuestos/6823aa63f3cf615116ff400e
+```
 
 ## Captura de la respuesta
 
